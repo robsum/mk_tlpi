@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <grp.h> // setgroups()
-#include "tlpi_hdr.h"
+#include "../mk_linux_programming_interface/tlpi-dist/lib/tlpi_hdr.h"
 
 const int GIDS_MAX = 2560;
 
