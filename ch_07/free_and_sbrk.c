@@ -23,7 +23,7 @@
         (Only the last of these should see the program break lowered.)
 */
 #define _BSD_SOURCE
-#include "/home/robert/Workspace/Linux/tlpi-dist/lib/tlpi_hdr.h"
+#include "mk_linux_programming_interface/tlpi-dist/lib/tlpi_hdr.h"
 
 #define MAX_ALLOCS 1000000
 
