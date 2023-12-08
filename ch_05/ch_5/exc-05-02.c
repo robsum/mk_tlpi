@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <fcntl.h>
-#include "/home/robert/Workspace/Linux/mk_linux_programming_interface/tlpi-dist/lib/tlpi_hdr.h"
+#include "mk_linux_programming_interface/tlpi-dist/lib/tlpi_hdr.h"
 
 int main (int argc, char* argv[])
 {
