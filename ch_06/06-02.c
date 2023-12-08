@@ -30,8 +30,8 @@ static jmp_buf env;
 static void
 doJump(int nvar, int rvar, int vvar)
 {
-    setjmp(env);
-    printf("Inside doJump(): nvar=%d rvar=%d vvar=%d\n", nvar, rvar, vvar);
+    int rtc = setjmp(env);
+    printf("Inside doJump(): nvar=%d rvar=%d vvar=%d rtc=%d\n", nvar, rvar, vvar, rtc);
 }
 
 int
