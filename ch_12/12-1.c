@@ -2,7 +2,7 @@
 #include <string.h>
 #include <dirent.h>
 #include <ctype.h>
-#include "ugid_functions.h"
+#include "mk_linux_programming_interface/tlpi-dist/lib/ugid_functions.h"
 
 int main(int argc, char* argv[])
 {
