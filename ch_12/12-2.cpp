@@ -24,6 +24,47 @@ class Process {
 char* getprocessname(const char* pid);
 char* getprocessppid(const char* pid);
 
+void buildProcessTree(const std::list<Process>& allProcesses, Process& root) {
+    for (const auto& process : allProcesses) {
+        if (process.ppid == root.pid) {
+            root.children.push_back(process);
+            buildProcessTree(allProcesses, root.children.back());
+        }
+    }
+}
+
+std::list<Process> findRootProcesses(const std::list<Process>& allProcesses) {
+    std::list<Process> rootProcesses;
+
+    for (const auto& process : allProcesses) {
+        bool isRoot = true;
+        for (const auto& otherProcess : allProcesses) {
+            if (process.ppid == otherProcess.pid) {
+                isRoot = false;
+                break;
+            }
+        }
+
+        if (isRoot) {
+            rootProcesses.push_back(process);
+            buildProcessTree(allProcesses, rootProcesses.back());
+        }
+    }
+
+    return rootProcesses;
+}
+
+void displayProcessTree(const Process& process, int depth = 0) {
+    for (int i = 0; i < depth; ++i) {
+        std::cout << "  "; // Indentation for better visualization
+    }
+    std::cout << process.pid << std::endl;
+
+    for (const auto& child : process.children) {
+        displayProcessTree(child, depth + 1);
+    }
+}
+
 int main(void) {
     std::list<Process> list;
 
@@ -41,29 +82,13 @@ int main(void) {
         }
     }
 
+    std::list<Process> rootProcesses = findRootProcesses(list);
 
-    std::list<Process> listWithChildren(list);
-    for (const auto& process : list) {
-        for (auto& processWithChildren : listWithChildren) {
-            if (process == processWithChildren)
-                continue;
-            else if (process.ppid == processWithChildren.pid)
-                processWithChildren.children.push_back(process);
-                continue;
-        }
+    // Display process tree for each root process
+    for (const auto& rootProcess : rootProcesses) {
+        displayProcessTree(rootProcess);
     }
 
-    for (const auto& process : listWithChildren) {
-        if (!process.children.empty()) {    
-            std::cout << process.pid << " has children: ";
-
-            for (const auto& child : process.children) {
-                std::cout << child.pid << " ";
-            }
-
-            std::cout << std::endl;
-        }
-    }
 
     return EXIT_SUCCESS;
 }
